@@ -54,6 +54,11 @@ def startup():
 def getsaves(saves):
     listobj=saves.readlines()
     return listobj
+def addnewwebsite(website_list):
+    global saves
+    saves=saves+website_list
+    #website list contains all string content for new website obj, init it and add to map of website obj
+#convert string material from list txt doc to obj
 def converttoobj(stuff, num_start, linesperobj):
     
     obj=website_dataobj(stuff[num_start], stuff[num_start+1], stuff[num_start+2])
