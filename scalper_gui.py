@@ -1,8 +1,5 @@
 from tkinter import *
 import sys
-import ctypes
-
-ctypes.windll.shcore.SetProcessDpiAwareness(1)
 counter=1
 
 def main():
@@ -73,17 +70,9 @@ def show_frame(frame):
     frame.grid(row=0, column=0, sticky="nsew")"""
 def init_frame():
     global List_frame
-    side_btn_per_frame=[]
-    x=0
     for frame in List_frame:
         
         frame.grid(row=0, column=0, sticky="nsew")
-        side_btn_per_frame.append(Button(frame, text="Side Menu", command=lambda: show_side(), state=NORMAL, bg='#7289da', fg='#ffffff', width=20, height= 5))
-        side_btn_per_frame[x].pack(side=LEFT, pady=0,padx=0)
-        
-        x=x+1
-        
-    
 def show_side():
     global side_menu
     global current_frame
@@ -121,7 +110,7 @@ window.title('Ubihard: ScalperScape')
 try:
     window.iconbitmap("C:/Users/chowm/Desktop/scalper_repo_test/tree_of_life.ico")
 except:
-    window.iconbitmap("C:/Users/chowm/Desktop/scalper_repo_test/tree_of_life.ico")
+    pass
 
 main_menu=Frame(window)
 frame1=Frame(window)
@@ -131,24 +120,23 @@ List_frame=[root, frame1, main_menu]
 side_menu=Frame(window)
 side_State=False
 side_menu['bg']='#666666'
-window.bind('<Escape>', quit)
+window.bind('<s>', lambda: show_side())
 side_menu_label=Label(side_menu,text="Side Menu", bg='#7289da', fg='#ffffff', font=('Times New Roman', 16), width=15, height=3 )
 side_menu_label.pack()
-side_menu.grid(row=0, column=0, sticky='wn', padx=0)
-Main_btn=Button(side_menu, text="Main",font=('Times New Roman', 14), command=lambda: show_frame(main_menu), state=NORMAL, bg='#99aab5', fg='#ffffff', width=15, height=0)
-Main_btn.pack(padx=40, pady=15, fill=Y)
-Website_trackbtn=Button(side_menu, text="Web & Prod Track",font=('Times New Roman', 14), command=lambda: show_frame(frame1), state=NORMAL, bg='#99aab5', fg='#ffffff', width=15, height=0)
-Website_trackbtn.pack(padx=40, pady=15, fill=Y)
-Add_websitebtn=Button(side_menu, text="Add a Website",font=('Times New Roman', 14), command=lambda: show_frame(root), state=NORMAL, bg='#99aab5', fg='#ffffff', width=15, height=0)
-Add_websitebtn.pack(padx=40, pady=15, fill=Y)
+side_menu.grid(row=0, column=0, sticky='wn', padx=20)
+
 
 
 #main menu frame 
 main_menu.configure(bg='#2c2f33')
 mainheadlabel=Label(main_menu, text="Monopoly Bot", bg='#7289da', fg='#ffffff', font=('Times New Roman', 16), width=60, height=3)
 mainheadlabel.pack()
-
-
+add_website=Button(main_menu, text="Add Website", bg='#7289da', fg='#ffffff', font=('Times New Roman', 16), width=60, height=3,command= lambda: show_frame(root))
+add_website.pack(ipadx=30, ipady=20, side=TOP)
+website_monitor=Button(main_menu, text="Website Monitor", bg='#7289da', fg='#ffffff', font=('Times New Roman', 16), width=60, height=3,command= lambda: show_frame(frame1))
+website_monitor.pack(ipadx=30, ipady=20, side=TOP)
+exit_out=Button(main_menu, text="Exit",bg='#7289da', fg='#ffffff', font=('Times New Roman', 16), width=60, height=3,command=window.quit )
+exit_out.pack(side=BOTTOM)
 #Frame 1 for website information
 frame1_title=Label(frame1, text="Website Monitor", bg='#7289da', fg='#ffffff', font=('Times New Roman', 16), width=60, height=3)
 
