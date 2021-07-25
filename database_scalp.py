@@ -6,13 +6,18 @@ linesperobj=3
 
 class website_dataobj():
     website_name=""
+    website_url=""
     addcartbutton=""
     checkoutbutton=""
+    def __init__(self):
+        pass
     def __init__(self, x, y, z):
         self.setwebsite(x)
         self.setaddcart(y)
         self.setcheckout(z)
-        
+    
+    def setweburl(self, url):
+        self.website_url=url    
     def setaddcart(self, x):
         self.addcartbutton=x
     def setcheckout(self, x):
@@ -25,6 +30,8 @@ class website_dataobj():
         return self.checkoutbutton
     def getwebsite(self):
         return self.website_name
+    def getweburl(self):
+        return self.website_url
 class login_info():
     first_name=""
     last_name=""
@@ -70,8 +77,31 @@ def converttoobj(stuff, num_start, linesperobj):
 def initconnverttoobj(stuff):
     global linesperobj
     obj_data_send=[]
-    s=0
+    
+    """s=0
     while s < len(stuff):
         obj_data_send.append(converttoobj(stuff, s))
         s+linesperobj
-    return obj_data_send
+    return obj_data_send"""
+    #^ used this loop back when we thought only 3 items needed per website
+    x=0
+    while len(linesperobj)!=0:
+        #will use '#' in line by itself to mark beginning and end of new website obj to write
+        if linesperobj[x]=='#':
+            to_delete=0
+            x+=1
+            obj_data_send.append(website_dataobj())
+            while linesperobj[x]!='#':
+                if 'website_name=' in linesperobj[x]:
+                    obj_data_send[len(obj_data_send)-1].setwebsite(linesperobj[x][13:len(linesperobj[x])])
+                    x+=1
+                if 'web_url=' in linesperobj[x]:
+                    obj_data_send[len(obj_data_send)-1].setweburl(linesperobj[x][8:len(linesperobj[x])])
+                    x+=1
+                if 'addcartbutton=' in linesperobj[x]:
+                    obj_data_send[len(obj_data_send)-1].setwebsite(linesperobj[x][14:len(linesperobj[x])])
+                    x+=1
+                if 'checkoutbutton=' in linesperobj[x]:
+                    obj_data_send[len(obj_data_send)-1].setwebsite(linesperobj[x][15:len(linesperobj[x])])
+                    x+=1
+                    
