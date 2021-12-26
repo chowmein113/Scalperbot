@@ -103,7 +103,7 @@ root.configure(bg='#2c2f33')
 
 root.geometry('760x760')
 root.title('Piglatin Translator')
-root.iconbitmap("C:\Users\chowm\Desktop\scalper_repo_test.ico")
+#root.iconbitmap("C:/Users/chowm/Desktop/scalper_repo_test.ico")
 
 repeat=True
 ##headlabel__init__()

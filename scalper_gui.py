@@ -245,9 +245,11 @@ init_frame();
     mixer.music.play()
 except:
     pass"""
+    
 mixer.init()
-mixer.music.load('H:/python/python_repos/scalper_github_repository/scallibrini_theme.mp3')
+mixer.music.load('scallibrini_theme.mp3')
 mixer.music.play()
+
 #make main_menu visible at start
 show_frame(main_menu)
 current_frame=main_menu
