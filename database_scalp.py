@@ -119,6 +119,7 @@ class website_element():
         self.element = element
         self.name = name
         self.type = type 
+        self.need_clear = False
     @property
     def element(self):
         return self.element

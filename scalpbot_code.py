@@ -2,12 +2,68 @@ from selenium import webdriver
 from selenium.webdriver.support.select import Select
 import time
 import random
-    """
+import database_scalp
+"""
     1. load and create all website objects from database_scalpy and text file 
     2. open driver windows for each website data obj, possibly using a class file that can manage all driver windows or assign as a new class variable for a website obj 
     3. run through queue of xpath elements or sen_key or url links, or any other necessary elements
     4. run process on loop for each obj, once done ask user again for reloop, and have mothods for adding or removing website objects
-    """
+"""
+    
+class webdriver():
+    
+    def __init__(self):
+        self.driver = webdriver.Chrome()
+    @property
+    def driver(self):
+        return self.driver
+    @driver.setter
+    def driver(self, driver):
+        self.driver = driver
+def buy(driver, website_obj_procedure):
+    random.seed()
+    for i in website_obj_procedure:
+        if i.type == 'xpath_button':
+            try:
+                button = driver.find_element_by_xpath(i.element)
+                button.click()
+                time.sleep(random.uniform(1.0, 13.5))
+            except:
+                break
+        elif i.type == 'url':
+            try:
+                driver.get(i.element)
+                
+                time.sleep(random.uniform(1.0, 13.5))
+            except:
+                break
+        elif i.type == 'xpath_sendkey':
+            try:
+                txt_box = driver.find_element_by_xpath(i.element)
+                if i.need_clear:
+                    txt_box.clear()
+                    time.sleep(random.uniform(1.0, 13.5))
+                
+                    
+                txt_box.send_keys(i.name)
+                time.sleep(random.uniform(1.0, 13.5))
+            except:
+                break
+        elif i.type == 'xpath_select_value':
+            try:
+                select_box = driver.find_element_by_xpath(i.element)
+                
+                
+                    
+                Select(select_box).select_by_value(i.name)
+                time.sleep(random.uniform(1.0, 13.5))
+            except:
+                break
+def show_driver(driver, bool):
+    if bool:
+        driver.maximize_window()
+             
+            
 driver = webdriver.Chrome()
 driver.implicitly_wait(5)
 
