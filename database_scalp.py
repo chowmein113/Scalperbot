@@ -151,7 +151,7 @@ class website_dataobj():
         self.weburl = website_element(weburl, "weburl", "url") 
         self.procedure.append(self.weburl)
         self.webname = website_element(webname, "webname", "name")
-        self.procedure.append(self.webname)
+        
         self.addcart = website_element(addcart, "addcart", "xpath")
         self.procedure.append(self.addcart)
         self.checkout = website_element(checkout, "checkout", "xpath")

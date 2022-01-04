@@ -12,8 +12,15 @@ import database_scalp
     
 class webdriver():
     
-    def __init__(self):
+    def __init__(self, website_obj):
         self.driver = webdriver.Chrome()
+        self.website_obj = website_obj
+    @property
+    def website_obj(self):
+        return self.website_obj
+    @website_obj.setter
+    def website_obj(self, website_obj):
+        self.website_obj = website_obj
     @property
     def driver(self):
         return self.driver
