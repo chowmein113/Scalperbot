@@ -1,7 +1,13 @@
 from selenium import webdriver
 from selenium.webdriver.support.select import Select
 import time
-
+import random
+    """
+    1. load and create all website objects from database_scalpy and text file 
+    2. open driver windows for each website data obj, possibly using a class file that can manage all driver windows or assign as a new class variable for a website obj 
+    3. run through queue of xpath elements or sen_key or url links, or any other necessary elements
+    4. run process on loop for each obj, once done ask user again for reloop, and have mothods for adding or removing website objects
+    """
 driver = webdriver.Chrome()
 driver.implicitly_wait(5)
 
