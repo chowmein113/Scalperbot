@@ -13,8 +13,10 @@ import database_scalp
 class webdriver():
     
     def __init__(self, website_obj):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome(executable_path=r"chromedriver.exe")
         self.website_obj = website_obj
+    def wait(self, time):
+        self.driver.implicitly_wait(time)
     @property
     def website_obj(self):
         return self.website_obj
@@ -69,9 +71,10 @@ def buy(driver, website_obj_procedure):
 def show_driver(driver, bool):
     if bool:
         driver.maximize_window()
+
              
             
-driver = webdriver.Chrome()
+"""driver = webdriver.Chrome()
 driver.implicitly_wait(5)
 
 url = "https://www.walmart.com/ip/Refurbished-Apple-iPad-Pro-12-9-4th-Gen-128GB-Silver-Wi-Fi-MY2J2LL-A-Latest-Model/242925018"
@@ -131,4 +134,4 @@ Select(state).select_by_value("CA")
 time.sleep(1)
 
 continueButton2 = driver.find_element_by_xpath('/html/body/div[1]/div/div[1]/div/div[1]/div[3]/div/div/div/div[3]/div[1]/div[2]/div/div/div/div[3]/div/div/div/div/div/form/div[2]/div[2]/button')
-continueButton2.click()
+continueButton2.click()"""

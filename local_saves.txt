@@ -1,0 +1,20 @@
+#
+webname=Best Buy
+web_url=https://www.walmart.com/ip/Refurbished-Apple-iPad-Pro-12-9-4th-Gen-128GB-Silver-Wi-Fi-MY2J2LL-A-Latest-Model/242925018 web_url url
+addcart=//*[@id="add-on-atc-container"]/div[1]/section/div[1]/div[3]/button/span addcart xpath_button
+checkout=//*[@id="cart-root-container-content-skip"]/div[1]/div/div[2]/div/div/div/div/div[3]/div/div/div[2]/div/div[2]/div/button[1] checkout xpath_button
+/html/body/div[1]/div/div[1]/div/div[1]/div[3]/div/div/div/div[1]/div/div/div/div/div[3]/div/div[1]/div/section/section/div/button continueWithoutAcc xpath_button
+/html/body/div[1]/div/div[1]/div/div[1]/div[3]/div/div/div/div[2]/div/div[2]/div/div/div/div[3]/div/div/div[2]/button continuebutton xpath_button
+send_key=//*[@id="firstName"] Engkanchanith xpath_sendkey false
+send_key=//*[@id="lastName"] Tan xpath_sendkey false
+send_key=//*[@id="phone"] 7142048324 xpath_sendkey false
+send_key=//*[@id="addressLineOne"] 1013 W Alton Ave xpath_sendkey false
+send_key=//*[@id="email"] t.kanchanith@gmail.com xpath_sendkey false
+send_key=//*[@id="city"] Santa Ana xpath_sendkey true
+send_key=//*[@id="postalCode"] 92707 xpath_sendkey true
+//*[@id="state"] CA xpath_select_value
+/html/body/div[1]/div/div[1]/div/div[1]/div[3]/div/div/div/div[3]/div[1]/div[2]/div/div/div/div[3]/div/div/div/div/div/form/div[2]/div[2]/button continue1 xpath_button
+
+
+
+
