@@ -39,7 +39,7 @@ def buy(websitedriver, website_obj_procedure):
                 time.sleep(random.uniform(1.0, 13.5))
             except:
                 raise Exception(i.type + ' ' + i.name +' did not work from ' + i.element)
-                break
+                pass
         elif i.type == 'url':
             print('url ran')
             try:
@@ -49,7 +49,7 @@ def buy(websitedriver, website_obj_procedure):
                 time.sleep(random.uniform(3.0, 13.5))
             except:
                 raise Exception(i.type + ' ' + i.name +' did not work')
-                break
+                pass
         elif i.type == 'xpath_sendkey':
             try:
                 txt_box = websitedriver.driver.find_element_by_xpath(i.element)
@@ -62,7 +62,7 @@ def buy(websitedriver, website_obj_procedure):
                 time.sleep(random.uniform(1.0, 13.5))
             except:
                 raise Exception(i.type + ' ' + i.name +' did not work')
-                break
+                pass
         elif i.type == 'xpath_select_value':
             try:
                 select_box = websitedriver.driver.find_element_by_xpath(i.element)
@@ -73,16 +73,17 @@ def buy(websitedriver, website_obj_procedure):
                 time.sleep(random.uniform(1.0, 13.5))
             except:
                 raise Exception(i.type + ' ' + i.name +' did not work')
-                break
+                pass
         elif i.type == 'timer':
             try:
                 
                 time.sleep(float(i.element))
             except:
                 raise Exception(i.type + ' ' + i.name +' did not work')
-                break
+                pass
         else:
             raise Exception(i.type + ' ' + i.name +' did not meet any of the criteria')
+            pass
 def show_driver(websitedriver, bool):
     if bool:
         websitedriver.driver.maximize_window()
