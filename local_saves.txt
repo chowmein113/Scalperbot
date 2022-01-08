@@ -1,5 +1,5 @@
 #
-webname=Best Buy
+webname=Walmart
 web_url=https://www.walmart.com/ip/Refurbished-Apple-iPad-Pro-12-9-4th-Gen-128GB-Silver-Wi-Fi-MY2J2LL-A-Latest-Model/242925018 web_url url
 addcart=//*[@id="add-on-atc-container"]/div[1]/section/div[1]/div[3]/button/span addcart xpath_button
 checkout=//*[@id="cart-root-container-content-skip"]/div[1]/div/div[2]/div/div/div/div/div[3]/div/div/div[2]/div/div[2]/div/button[1] checkout xpath_button
@@ -14,6 +14,17 @@ send_key=//*[@id="city"] Santa Ana xpath_sendkey true
 send_key=//*[@id="postalCode"] 92707 xpath_sendkey true
 //*[@id="state"] CA xpath_select_value
 /html/body/div[1]/div/div[1]/div/div[1]/div[3]/div/div/div/div[3]/div[1]/div[2]/div/div/div/div[3]/div/div/div/div/div/form/div[2]/div[2]/button continue1 xpath_button
+#
+webname=Amazon
+web_url=https://www.amazon.com/Doctor-Butlers-Hemorrhoid-Fissure-Ointment/dp/B009G6U1AS/ref=sr_1_3_sspa?crid=3R46DVUMNYDJH&keywords=hemmoroid+treatment&qid=1641591074&sprefix=hemmo%2Caps%2C128&sr=8-3-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUEyVk5VRDhRSE00T0dEJmVuY3J5cHRlZElkPUEwOTg5MDA4MjMwTk1ROUlYU0tMVCZlbmNyeXB0ZWRBZElkPUEwNzUyMDUyMzdPOFA4SzM2SzBSNyZ3aWRnZXROYW1lPXNwX2F0ZiZhY3Rpb249Y2xpY2tSZWRpcmVjdCZkb05vdExvZ0NsaWNrPXRydWU= web_url url
+addcart=//*[@id="buy-now-button"] addcart xpath_button
+send_key=//*[@id="ap_email"] fake@email.com xpath_sendkey false
+//*[@id="continue"] continue xpath_button
+send_key=//*[@id="ap_password"] password_here xpath_sendkey false
+//*[@id="signInSubmit"] signin xpath_button
+30 wait timer
+//*[@id="signup_cancel"] cancel xpath_button
+//*[@id="spc-orders"]/div[1]/div/div[3]/div/div/div[2]/div[2]/div[1]/fieldset/div[2]/input shippin xpath_button
 
 
 

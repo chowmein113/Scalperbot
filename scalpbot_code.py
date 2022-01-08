@@ -10,45 +10,49 @@ import database_scalp
     4. run process on loop for each obj, once done ask user again for reloop, and have mothods for adding or removing website objects
 """
     
-class webdriver():
+class websitedriver():
     
     def __init__(self, website_obj):
-        self.driver = webdriver.Chrome(executable_path=r"chromedriver.exe")
-        self.website_obj = website_obj
+        self._driver = webdriver.Chrome(executable_path="H:/python/python_repos/scalper_github_repository/chromedriver.exe")
+        self._website_obj = website_obj
     def wait(self, time):
         self.driver.implicitly_wait(time)
     @property
     def website_obj(self):
-        return self.website_obj
+        return self._website_obj
     @website_obj.setter
     def website_obj(self, website_obj):
-        self.website_obj = website_obj
+        self._website_obj = website_obj
     @property
     def driver(self):
-        return self.driver
+        return self._driver
     @driver.setter
     def driver(self, driver):
-        self.driver = driver
-def buy(driver, website_obj_procedure):
+        self._driver = driver
+def buy(websitedriver, website_obj_procedure):
     random.seed()
     for i in website_obj_procedure:
         if i.type == 'xpath_button':
             try:
-                button = driver.find_element_by_xpath(i.element)
+                button = websitedriver.driver.find_element_by_xpath(i.element)
                 button.click()
                 time.sleep(random.uniform(1.0, 13.5))
             except:
+                raise Exception(i.type + ' ' + i.name +' did not work from ' + i.element)
                 break
         elif i.type == 'url':
+            print('url ran')
             try:
-                driver.get(i.element)
+                print('url worked')
+                websitedriver.driver.get(i.element)
                 
-                time.sleep(random.uniform(1.0, 13.5))
+                time.sleep(random.uniform(3.0, 13.5))
             except:
+                raise Exception(i.type + ' ' + i.name +' did not work')
                 break
         elif i.type == 'xpath_sendkey':
             try:
-                txt_box = driver.find_element_by_xpath(i.element)
+                txt_box = websitedriver.driver.find_element_by_xpath(i.element)
                 if i.need_clear:
                     txt_box.clear()
                     time.sleep(random.uniform(1.0, 13.5))
@@ -57,20 +61,31 @@ def buy(driver, website_obj_procedure):
                 txt_box.send_keys(i.name)
                 time.sleep(random.uniform(1.0, 13.5))
             except:
+                raise Exception(i.type + ' ' + i.name +' did not work')
                 break
         elif i.type == 'xpath_select_value':
             try:
-                select_box = driver.find_element_by_xpath(i.element)
+                select_box = websitedriver.driver.find_element_by_xpath(i.element)
                 
                 
                     
                 Select(select_box).select_by_value(i.name)
                 time.sleep(random.uniform(1.0, 13.5))
             except:
+                raise Exception(i.type + ' ' + i.name +' did not work')
                 break
-def show_driver(driver, bool):
+        elif i.type == 'timer':
+            try:
+                
+                time.sleep(float(i.element))
+            except:
+                raise Exception(i.type + ' ' + i.name +' did not work')
+                break
+        else:
+            raise Exception(i.type + ' ' + i.name +' did not meet any of the criteria')
+def show_driver(websitedriver, bool):
     if bool:
-        driver.maximize_window()
+        websitedriver.driver.maximize_window()
 
              
             
