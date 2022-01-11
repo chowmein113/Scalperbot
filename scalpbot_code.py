@@ -3,6 +3,7 @@ from selenium.webdriver.support.select import Select
 import time
 import random
 import database_scalp
+import os 
 """
     1. load and create all website objects from database_scalpy and text file 
     2. open driver windows for each website data obj, possibly using a class file that can manage all driver windows or assign as a new class variable for a website obj 
@@ -13,7 +14,8 @@ import database_scalp
 class websitedriver():
     
     def __init__(self, website_obj):
-        self._driver = webdriver.Chrome(executable_path="H:/python/python_repos/scalper_github_repository/chromedriver.exe")
+        self.path = os.path.dirname(__file__) +"/chromedriver.exe"
+        self._driver = webdriver.Chrome(executable_path= self.path)
         self._website_obj = website_obj
     def wait(self, time):
         self.driver.implicitly_wait(time)

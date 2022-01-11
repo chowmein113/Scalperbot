@@ -17,6 +17,7 @@ send_key=//*[@id="postalCode"] 92707 xpath_sendkey true
 #
 webname=Amazon
 web_url=https://www.amazon.com/Doctor-Butlers-Hemorrhoid-Fissure-Ointment/dp/B009G6U1AS/ref=sr_1_3_sspa?crid=3R46DVUMNYDJH&keywords=hemmoroid+treatment&qid=1641591074&sprefix=hemmo%2Caps%2C128&sr=8-3-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUEyVk5VRDhRSE00T0dEJmVuY3J5cHRlZElkPUEwOTg5MDA4MjMwTk1ROUlYU0tMVCZlbmNyeXB0ZWRBZElkPUEwNzUyMDUyMzdPOFA4SzM2SzBSNyZ3aWRnZXROYW1lPXNwX2F0ZiZhY3Rpb249Y2xpY2tSZWRpcmVjdCZkb05vdExvZ0NsaWNrPXRydWU= web_url url
+//div[@id="newAccordionRow"] accordion xpath_button
 addcart=//*[@id="buy-now-button"] addcart xpath_button
 send_key=//*[@id="ap_email"] fake@email.com xpath_sendkey false
 //*[@id="continue"] continue xpath_button
