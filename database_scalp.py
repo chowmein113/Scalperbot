@@ -1,5 +1,7 @@
 from tkinter import *
 import sys
+import os
+import json
 
 global linesperobj
 linesperobj = 3
@@ -36,7 +38,7 @@ def converttoobj(new_website, obj_txt):
                 #new_website.procedure.append(new_website.getwebname())
                 """procedure_step += 1
                 x += 1"""
-            if 'web_url=' in obj_txt[x]:
+            elif 'web_url=' in obj_txt[x]:
                 holder = obj_txt[x][(obj_txt[x].find('=')+1):len(obj_txt[x])].split()
                 obj_txt.pop(0)
                 packer = website_element(holder[0], holder[1], holder[2])
@@ -44,7 +46,7 @@ def converttoobj(new_website, obj_txt):
                 new_website.append_command(new_website.getweburl())
                 """procedure_step += 1
                 x += 1"""
-            if 'addcart=' in obj_txt[x]:
+            elif 'addcart=' in obj_txt[x]:
                 holder = obj_txt[x][(obj_txt[x].find('=')+1):len(obj_txt[x])].split()
                 obj_txt.pop(0)
                 packer = website_element(holder[0], holder[1], holder[2])
@@ -52,7 +54,7 @@ def converttoobj(new_website, obj_txt):
                 new_website.append_command(new_website.getaddcart())
                 """procedure_step += 1
                 x += 1"""
-            if 'checkout=' in obj_txt[x]:
+            elif 'checkout=' in obj_txt[x]:
                 holder = obj_txt[x][(obj_txt[x].find('=')+1):len(obj_txt[x])].split()
                 obj_txt.pop(0)
                 packer = website_element(holder[0], holder[1], holder[2])
@@ -60,7 +62,7 @@ def converttoobj(new_website, obj_txt):
                 new_website.append_command(new_website.getcheckout())
                 """procedure_step += 1
                 x += 1"""
-            if 'gocart=' in obj_txt[x]:
+            elif 'gocart=' in obj_txt[x]:
                 holder = obj_txt[x][(obj_txt[x].find('=')+1):len(obj_txt[x])].split()
                 obj_txt.pop(0)
                 packer = website_element(holder[0], holder[1], holder[2])
@@ -68,15 +70,16 @@ def converttoobj(new_website, obj_txt):
                 new_website.append_command(new_website.getgocart())
                 """procedure_step += 1
                 x += 1"""
-            if "send_key=" in obj_txt[x]:
+            elif "send_key=" in obj_txt[x]:
                 holder = obj_txt[x][(obj_txt[x].find('=')+1):len(obj_txt[x])].split()
-                need_clear = True if holder[-1] == 'true' else False
+                needclear = True if holder[-1] == 'true' else False
                 holder = holder[0:-1]
                 obj_txt.pop(0)
                 keys = holder[1:-1]
                 space = " "
                 keys = space.join(keys)
                 packer = website_element(holder[0], keys, holder[-1])
+                packer.need_clear = needclear
                 new_website.append_command(packer)
             
             else:
@@ -99,7 +102,69 @@ def converttoobj(new_website, obj_txt):
         return new_website
 #def saveobj(website):
    
-    
+def convert_dict_to_obj(dict, new_website):
+    print('dict')
+    for i in dict:
+        print(i)
+        if 'webname' in i:
+                holder = dict.get(i).split()
+                packer = website_element(holder[0], holder[0], "webname")
+                
+                new_website.setwebname(packer)
+                #after the equal, will increment by one to read actual text information
+                #new_website.procedure.append(new_website.getwebname())
+                """procedure_step += 1
+                x += 1"""
+        elif 'web_url' in i:
+                holder = dict.get(i).split()
+                packer = website_element(holder[0], holder[1], holder[2])
+                new_website.setweburl(packer)
+                new_website.append_command(new_website.getweburl())
+                """procedure_step += 1
+                x += 1"""
+        elif 'addcart' in i:
+            holder = dict.get(i).split()
+            
+            packer = website_element(holder[0], holder[1], holder[2])
+            new_website.setaddcart(packer)
+            new_website.append_command(new_website.getaddcart())
+            """procedure_step += 1
+            x += 1"""
+        elif 'checkout' in i:
+            holder = dict.get(i).split()
+            
+            packer = website_element(holder[0], holder[1], holder[2])
+            new_website.setcheckout(packer)
+            new_website.append_command(new_website.getcheckout())
+            """procedure_step += 1
+            x += 1"""
+        elif 'gocart' in i:
+            holder = dict.get(i).split()
+            
+            packer = website_element(holder[0], holder[1], holder[2])
+            new_website.setgotocart(packer)
+            new_website.append_command(new_website.getgocart())
+            """procedure_step += 1
+            x += 1"""
+        elif "send_key" in i:
+            holder = dict.get(i).split()
+            needclear = True if holder[-1] == 'true' else False
+            holder = holder[0:-1]
+            
+            keys = holder[1:-1]
+            space = " "
+            keys = space.join(keys)
+            packer = website_element(holder[0], keys, holder[-1])
+            packer.need_clear = needclear
+            new_website.append_command(packer)
+        
+        else:
+            holder = dict.get(i).split()
+            print(holder)
+            packer = website_element(holder[0], holder[1], holder[2])
+            new_website.append_command(packer)
+            """procedure_step += 1"""
+    return new_website
         
 def convertalltoobj(obj_txt):
     """obj_txt is list of strings taken from gui for new website"""
@@ -138,23 +203,57 @@ class local_database():
     def get_text(self):
         
         return self._text
+    
     def collect_websites(self):
-        self._websites = convertalltoobj(self.get_text())
-    def close(self):
+        self.set_website_objs(convertalltoobj(self.get_text()))
         
-        self._handler = "r+"
+        
+    def write_to_json(self, json_file):
+        self.assertion()
+        with open(json_file, 'w') as f:
+            print('[', file = f)
+        for i in [self.get_website_objs().get(i) for i in self.get_website_objs()]:
+            with open(json_file, 'a') as f:
+                
+                json.dump(i.to_json_dict(), f, indent = 4)
+                print(",\n", end = '', file = f)
+        with open(json_file, 'a') as f:
+            #0 is first of char in doc, 2 is end of document
+            f.seek(0, 2)
+            #f.tell tells where the cursor is currently at
+            f.seek(f.tell() - 3, os.SEEK_SET)
+            f.truncate()
+            print('\n]', file = f)
+    def json_to_obj(self, json_file):
+        with open(json_file) as f:
+            x = json.load(f)
+            d = {}
+            for i in x:
+                temp_website_holder = convert_dict_to_obj(i, website_dataobj())
+                d[temp_website_holder.getwebname().name] = temp_website_holder
+            self.set_website_objs(d)
+            
+        
+            
+    def close(self):
+        self.saves = open(os.path.dirname(__file__) + r"/test_saves.txt", 'r+')
+        """self._handler = "r+"
         self.saves = None
         self.assertion()
-        self.saves.truncate(0)
+        self.saves.truncate(0)"""
+        
         
         
         for i in self.get_website_objs():
             self.saves.write('#\n')
-            for y in i.getprocedure():
-                if y.name in i.track_variables:
+            self.saves.write('webname=' + i+ '\n')
+            print('closing')
+            print([i.name for i in self.get_website_objs()[i].getprocedure()])
+            for y in self.get_website_objs()[i].getprocedure():
+                if y.name in self.get_website_objs()[i].track_variables:
                     self.saves.write(y.name + "=" + y.write_self() + '\n')
                 elif y.type == 'xpath_sendkey':
-                    self.saves.write(y.type + "=" + y.write_self() + y.need_clear + '\n')
+                    self.saves.write("send_key" + "=" + y.write_self() + ' ' + y.need_clear_to_str() + '\n')
                 else:
                     self.saves.write(y.write_self()+'\n')
         self.saves.close()
@@ -164,21 +263,23 @@ class local_database():
     def open(self):
         self.assertion()
     def assertion(self):
-        if self.saves is None:
+        if self.saves is None or []:
             self.saves = open(self._file_path, self._handler) 
         if self._text == None or []:
-            self._text = self.get_text()
-        if self._websites is None:
+            self._text = self.saves.readlines()
+        if self.get_website_objs() is None or []:
             self.collect_websites()
     def get_website_objs(self):
-        self.assertion()
+        
         return self._websites
+    def set_website_objs(self, websites):
+        self._websites = websites
     @property
     def saves(self):
         return self._saves
     @saves.setter
     def saves(self, saver):
-        self.saves = saver
+        self._saves = saver
     
     """need to fix write for rewriting file from scratch when 
     saving current websites and how to delete website from txt"""
@@ -228,8 +329,10 @@ class website_element():
     @need_clear.setter
     def need_clear(self, bool):
         self._need_clear = bool
+    def need_clear_to_str(self):
+        return 'true' if self.need_clear == True else 'false'
     def write_self(self):
-        return self.element + self.name + self.type
+        return ' '.join([self.element, self.name, self.type])
 class website_dataobj():
     webname = ""
     weburl = ""
@@ -240,8 +343,8 @@ class website_dataobj():
     
     
     def __init__(self, webname = '', weburl = '', addcart = '', gocart = '', checkout = ''):
-        self._track_variables = []
-        self._weburl = website_element(weburl, "weburl", "url") 
+        self._track_variables = ['web_url', 'addcart', 'gocart', 'webname', 'checkout']
+        self._weburl = website_element(weburl, "web_url", "url") 
         self._track_variables.append(self.getweburl().name)
         self._webname = website_element(webname, "webname", "name")
         
@@ -262,7 +365,20 @@ class website_dataobj():
             self.getprocedure()[i] = lst_website_elements[i]
     def append_command(self, website_element):
         self.getprocedure().append(website_element)
-            
+    def to_json_dict(self):
+        data = {}
+        data['webname='] = self.getwebname().name
+        print('json dict time *******')
+        print(self.getprocedure())
+        for y in self.getprocedure():
+                if y.name in self.track_variables:
+                    data[y.name + "="] = y.write_self() + '\n'
+                elif y.type == 'xpath_sendkey':
+                    data[y.name+'send_key='] = y.write_self() + ' ' + y.need_clear_to_str() + '\n'
+                else:
+                    data[y.name] = y.write_self()+'\n'
+        print(data)
+        return data 
     def setweburl(self, weburl):
         self._weburl = weburl    
     def setaddcart(self, addcart):
