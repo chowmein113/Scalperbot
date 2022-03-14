@@ -91,6 +91,49 @@ def dining_hall_rec():
 @app.route('/', methods=['GET'])
 def home():
     return render_template('home.html')
+
+@app.route('/add_website_JSON', methods=['POST'])
+def add_website_JSON():
+    if request.method == 'POST':
+        r = request.get_json(force=True)
+        #temp = json.loads(r)
+        re = r
+        #re = {}
+        """for i in range(len(temp)):
+            re[i] = temp[i]"""
+        
+        main = database_scalp.local_database(os.path.dirname(__file__) + r"/local_saves.txt", "r+")
+        new_website = database_scalp.website_dataobj()
+        new_website.setwebname(database_scalp.website_element(re["webname"].split()[0], re["webname"].split()[0], "webname"))        
+        new_website.setweburl(database_scalp.website_element(re["web_url"].split()[0], "web_url", "url") ) 
+        new_website.append_command(new_website.getweburl())
+        
+        i = 0
+        countoferror = 0
+        while(True):
+            try:
+                if "xpath_sendkey" in re["xpath" + str(i)]:
+                    
+                    line_of_words = "send_key=" + re["xpath" + str(i)]
+                    array = ['#\n', line_of_words, '#\n']
+                else:
+                    line_of_words = re["xpath" + str(i)]
+                    array = ['#\n', line_of_words, '#\n'] #dont need to add hastag at the end as coverttoobj quits after no lines are left
+                    #^^^ basically recreating a substitution of the readlines() function from txt file to work with converttoobj
+                    print('adding website')
+                    print(array)
+                var = database_scalp.converttoobj(new_website, array)
+                i += 1
+            except:
+                if countoferror > 5:
+                    break
+                else:
+                    countoferror += 1
+                    i += 1
+                    pass
+        main.get_website_objs()[new_website.getwebname().element] = new_website
+        main.close()
+    return jsonify({'msg' : 'Successfully added Website!'})
 @app.route("/add_website", methods=["POST"])
 def add_website():
     if request.method == "POST":
