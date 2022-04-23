@@ -2,7 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.support.select import Select
 import time
 import random
-import database_scalp
+import local_database as database_scalp
 import os 
 """
     1. load and create all website objects from database_scalpy and text file 

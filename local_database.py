@@ -101,7 +101,8 @@ def converttoobj(new_website, obj_txt):
         print('leftover ', obj_txt, "\n", [i.name for i in new_website.getprocedure()])
         return new_website
 #def saveobj(website):
-   
+
+"""given a dictionary and a website object"""   
 def convert_dict_to_obj(dict, new_website):
     print('dict')
     for i in dict:
@@ -189,11 +190,15 @@ def convertalltoobj(obj_txt):
 class local_database():
     def __init__(self, file_path = "", handler = ""):
         
-        
+        # file path of text file
         self._file_path = file_path
-        self._handler = handler
+        # mode to open text file in (a, w, r, r+)
+        self._handler = handler 
+        # reference to text file
         self._saves = open(self._file_path, self._handler)
+        # turns next file into list a strings line by line
         self._text = self.saves.readlines()
+        # creates dictionary of website objects from _text
         self.collect_websites()
         #self.assertion()
         
@@ -204,10 +209,11 @@ class local_database():
         
         return self._text
     
+    "loads website objs into dictionary"
     def collect_websites(self):
         self.set_website_objs(convertalltoobj(self.get_text()))
         
-        
+    """write my current dictionary of all website objs to a JSON file"""  
     def write_to_json(self, json_file):
         self.assertion()
         with open(json_file, 'w') as f:
@@ -224,6 +230,8 @@ class local_database():
             f.seek(f.tell() - 3, os.SEEK_SET)
             f.truncate()
             print('\n]', file = f)
+            
+    """open a json file to load json website objs into my dictionary"""
     def json_to_obj(self, json_file):
         with open(json_file) as f:
             x = json.load(f)
@@ -246,7 +254,7 @@ class local_database():
         
         for i in self.get_website_objs():
             self.saves.write('#\n')
-            self.saves.write('webname=' + i+ '\n')
+            self.saves.write('webname=' + i + '\n')
             print('closing')
             print([i.name for i in self.get_website_objs()[i].getprocedure()])
             for y in self.get_website_objs()[i].getprocedure():
@@ -275,9 +283,9 @@ class local_database():
     def set_website_objs(self, websites):
         self._websites = websites
     @property
-    def saves(self):
+    def saves(self): 
         return self._saves
-    @saves.setter
+    @saves.setter 
     def saves(self, saver):
         self._saves = saver
     
@@ -299,10 +307,16 @@ class local_database():
 #saves = local_database("website_info.txt", "r+")
 
 class website_element():
+    """glorified xpath, allows us to differentiate between 
+    xpaths so our code knows what to do for each given xpath"""
     def __init__(self, element = '', name = '', type = '', need_clear = False):
+        # element is xpath
         self._element = element
+        # name of xpath and name can be used by send_key if element is a xpath_sendkey
         self._name = name
+        # type of xpath; is it a send key or a regular xpath
         self._type = type 
+        # if im an xpath_sendkey do i need to clear text box before inputting text?                      222
         self._need_clear = need_clear
     
     @property
@@ -333,7 +347,10 @@ class website_element():
         return 'true' if self.need_clear == True else 'false'
     def write_self(self):
         return ' '.join([self.element, self.name, self.type])
+
+
 class website_dataobj():
+    """an object that hold a website information, has the url, name, and xpath query for shopping process"""
     webname = ""
     weburl = ""
     addcart = ""
@@ -354,12 +371,13 @@ class website_dataobj():
         self._track_variables.append(self.getcheckout().name)
         self._gocart = website_element(gocart, "gocart", "xpath")
         self._track_variables.append(self.getgocart().name)
+        # array to hold query of website elements
         self._procedure = []
         
             
     def custom_command(self, lst_website_elements):
         """for websites that differ from the default, input commands of website elements based on order from lst_website_elements, selenium will then iterate 
-        through self.procedure and do a comman procedure based on website elements type, be it xpath, url, keys for send_keys, etc"""
+        through self.procedure and do a command procedure based on website elements type, be it xpath, url, keys for send_keys, etc"""
         self.getprocedure().clear()
         for i in lst_website_elements:
             self.getprocedure()[i] = lst_website_elements[i]
@@ -420,7 +438,7 @@ class website_dataobj():
         
 
     
-
+"""possibly a class to use for login information to keep it separate from text saves"""
 class login_info():
     first_name = ""
     last_name = ""

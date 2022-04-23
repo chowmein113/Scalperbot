@@ -6,8 +6,8 @@ from random import randint
 import json
 import os
 import sys
-import scalpbot_code
-import database_scalp
+import autobuy_code as scalpbot_code
+import local_database as database_scalp
 load_dotenv()
 # Set up the app
 app = Flask(__name__, static_folder='../client/build/',    static_url_path='/')
@@ -102,7 +102,7 @@ def add_website_JSON():
         """for i in range(len(temp)):
             re[i] = temp[i]"""
         
-        main = database_scalp.local_database(os.path.dirname(__file__) + r"/local_saves.txt", "r+")
+        main = database_scalp.local_database(os.path.dirname(__file__) + r"/local_saves.JSON", "r+")
         new_website = database_scalp.website_dataobj()
         new_website.setwebname(database_scalp.website_element(re["webname"].split()[0], re["webname"].split()[0], "webname"))        
         new_website.setweburl(database_scalp.website_element(re["web_url"].split()[0], "web_url", "url") ) 
@@ -132,6 +132,7 @@ def add_website_JSON():
                     i += 1
                     pass
         main.get_website_objs()[new_website.getwebname().element] = new_website
+        main.write_to_json(os.path.dirname(__file__) + r"/local_saves.JSON")
         main.close()
     return jsonify({'msg' : 'Successfully added Website!'})
 @app.route("/add_website", methods=["POST"])
@@ -172,7 +173,7 @@ def add_website():
         try:
             return jsonify(response)
         except:
-            return "did not work u fat bitch"
+            return "did not work"
     
                 
 
