@@ -28,16 +28,5 @@
     "wait": "30 wait timer\n",
     "cancel": "//*[@id=\"signup_cancel\"] cancel xpath_button\n",
     "shipping": "//*[@id=\"spc-orders\"]/div[1]/div/div[3]/div/div/div[2]/div[2]/div[1]/fieldset/div[2]/input shipping xpath_button\n"
-},
-{
-    "webname=": "gmail",
-    "web_url=": "gmail.com web_url url\n",
-    "accordion": "//div[@id=\"newAccordionRow\"] accordion xpath_button\n",
-    "addcart=": "//*[@id=\"buy-now-button\"] addcart xpath_button\n"
-},
-{
-    "webname=": "youtube",
-    "web_url=": "youtube.com web_url url\n",
-    "accordion": "//div[@id=\"newAccordionRow\"] accordion xpath_button\n"
 }
 ]

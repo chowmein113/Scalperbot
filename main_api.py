@@ -8,6 +8,7 @@ import os
 import sys
 import autobuy_code as scalpbot_code
 import local_database as database_scalp
+import Webscrape
 load_dotenv()
 # Set up the app
 app = Flask(__name__, static_folder='../client/build/',    static_url_path='/')
@@ -88,9 +89,17 @@ def dining_hall_rec():
     for i in range(len(dining)):
         dict[i] = dining[i]
     return dict
-@app.route('/', methods=['GET'])
-def home():
-    return render_template('home.html')
+
+@app.route("/webscrape", methods=["POST"])
+def webscrape():
+    message = request.get_json(force=True)
+    Webscrape.webscrape(message['search'])
+    response = json.load(open('product_info.json', 'r'))
+    return jsonify(response)
+
+@app.errorhandler(404)
+def not_found(e):
+    return render_template("404.html")
 
 @app.route('/add_website_JSON', methods=['POST'])
 def add_website_JSON():

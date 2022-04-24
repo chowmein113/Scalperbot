@@ -1,5 +1,5 @@
 from importlib.resources import Package
-import Product
+import Websites.Product as Product
 import Websites.Amazon
 import Websites.Etsy
 import Websites.Ebay

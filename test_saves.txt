@@ -35,3 +35,6 @@ addcart=//*[@id="buy-now-button"] addcart xpath_button
 webname=youtube
 web_url=youtube.com web_url url
 //div[@id="newAccordionRow"] accordion xpath_button
+#
+webname=pornhub
+web_url=pornhub.com web_url url

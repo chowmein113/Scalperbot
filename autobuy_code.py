@@ -14,7 +14,7 @@ import os
 class websitedriver():
     
     def __init__(self, website_obj):
-        self.path = os.path.dirname(__file__) +"/chromedriver.exe"
+        self.path = os.path.dirname(__file__) +"/.chromedriver.exe"
         self._driver = webdriver.Chrome(executable_path= self.path)
         self._website_obj = website_obj
     def wait(self, time):
