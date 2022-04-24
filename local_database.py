@@ -209,12 +209,14 @@ class local_database():
         
         return self._text
     
-    "loads website objs into dictionary"
+    
     def collect_websites(self):
+        "loads website objs into dictionary"
         self.set_website_objs(convertalltoobj(self.get_text()))
         
-    """write my current dictionary of all website objs to a JSON file"""  
+     
     def write_to_json(self, json_file):
+        """write my current dictionary of all website objs to a JSON file""" 
         self.assertion()
         with open(json_file, 'w') as f:
             print('[', file = f)
@@ -231,8 +233,9 @@ class local_database():
             f.truncate()
             print('\n]', file = f)
             
-    """open a json file to load json website objs into my dictionary"""
+
     def json_to_obj(self, json_file):
+        """open a json file to load json website objs into my dictionary"""
         with open(json_file) as f:
             x = json.load(f)
             d = {}
@@ -289,9 +292,10 @@ class local_database():
     def saves(self, saver):
         self._saves = saver
     
-    """need to fix write for rewriting file from scratch when 
-    saving current websites and how to delete website from txt"""
+    
     def write(self, website_obj):
+        """need to fix write for rewriting file from scratch when 
+        saving current websites and how to delete website from txt"""
         
         self._handler = "r+"
         self.saves = None

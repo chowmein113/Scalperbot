@@ -26,9 +26,12 @@ send_key=//*[@id="ap_password"] password_here xpath_sendkey false
 30 wait timer
 //*[@id="signup_cancel"] cancel xpath_button
 //*[@id="spc-orders"]/div[1]/div/div[3]/div/div/div[2]/div[2]/div[1]/fieldset/div[2]/input shipping xpath_button
- xpath_button
 #
-webname=xnxx
-web_url=xnxx.com web_url url
- url
-
+webname=gmail
+web_url=gmail.com web_url url
+//div[@id="newAccordionRow"] accordion xpath_button
+addcart=//*[@id="buy-now-button"] addcart xpath_button
+#
+webname=youtube
+web_url=youtube.com web_url url
+//div[@id="newAccordionRow"] accordion xpath_button

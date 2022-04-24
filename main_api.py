@@ -102,11 +102,12 @@ def add_website_JSON():
         """for i in range(len(temp)):
             re[i] = temp[i]"""
         
-        main = database_scalp.local_database(os.path.dirname(__file__) + r"/local_saves.JSON", "r+")
+        main = database_scalp.local_database(os.path.dirname(__file__) + r"/local_saves.txt", "r+")
         new_website = database_scalp.website_dataobj()
         new_website.setwebname(database_scalp.website_element(re["webname"].split()[0], re["webname"].split()[0], "webname"))        
         new_website.setweburl(database_scalp.website_element(re["web_url"].split()[0], "web_url", "url") ) 
         new_website.append_command(new_website.getweburl())
+        main.json_to_obj(os.path.dirname(__file__) + r"/local_saves.JSON")
         
         i = 0
         countoferror = 0
