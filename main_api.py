@@ -101,6 +101,21 @@ def webscrape():
 def not_found(e):
     return render_template("404.html")
 
+@app.route('/addProduct', methods=["POST"])
+def addProduct():
+    if request.method == 'POST':
+        r = request.get_json(force=True)
+        
+        with open("product_info.json", "a") as f:
+            print('[', file=f)
+            json.dump(r, f, indent=4)
+            print(",", file=f)
+            f.seek(0, 2)
+            #f.tell tells where the cursor is currently at
+            f.seek(f.tell() - 3, os.SEEK_SET)
+            f.truncate()
+            print('\n]', file = f)
+            
 @app.route('/add_website_JSON', methods=['POST'])
 def add_website_JSON():
     if request.method == 'POST':
